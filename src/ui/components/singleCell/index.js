@@ -3,7 +3,6 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
-
 import { colors, images } from '../../theme'
 import styles from './style';
 
@@ -12,13 +11,10 @@ const SingleCell = (props) => {
   const figureType = useMemo(() => props.figureType, [isTapped]) ?? null
   const position = props.position ?? null
   const isWinCoords = props.isWinCoords
-
   const pressDefault = () => {
     console.warn('Press event is not set for SingleCell Component')
   }
-
   const onPressEvent = props.onPress ?? pressDefault
-
   const checkPosition = () => {
     if (typeof position === 'string' && !isWinCoords) {
       onPressEvent(position, figureType)

@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native'
-
+import { View, StatusBar } from 'react-native'
 import RNBootSplash from "react-native-bootsplash";
-
-import { colors } from './ui/theme'
-
+import { colors } from './ui/theme';
+import styles from './style';
 import ScreenManager from './screenManager';
-
 
 const App = () => {
 
@@ -21,12 +18,5 @@ const App = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    backgroundColor: colors.background
-  }
-})
 
 export default App;

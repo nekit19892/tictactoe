@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import {
   View,
   TouchableOpacity,
-  Text
 } from 'react-native';
-
 import styles from './style';
-
 import SingleCell from '../../ui/components/singleCell';
 import SingleLetter from '../../ui/components/singleLetter';
 
@@ -20,10 +17,8 @@ const MainScreenUi = (props) => {
     isWinCoords,
     resetFunc,
   } = props
-
   const [reseted, setReseted] = useState(false)
   const rowCount = Math.sqrt(cellCount)
-
 
   return (
     <TouchableOpacity style={styles.main} onPress={() => { resetFunc(); setReseted(state => !state) }}>
@@ -33,14 +28,14 @@ const MainScreenUi = (props) => {
         ))}
       </View>
       <View style={styles.battleWrapper}>
-        {[...Array(rowCount).keys()].map(item => (
-          <View key={item} style={styles.singleRow}>
-            {[...Array(rowCount).keys()].map(itemInside => (
+        {[...Array(rowCount)].map((item, index) => (
+          <View key={index} style={styles.singleRow}>
+            {[...Array(rowCount)].map((itemInside, indexInside) => (
               <SingleCell
                 isWinCoords={isWinCoords}
-                key={`${item}_${itemInside}`}
+                key={`${index}_${indexInside}`}
                 figureType={currentType}
-                position={`${item}_${itemInside}`}
+                position={`${index}_${indexInside}`}
                 onPress={setPosition}
                 reseted={reseted}
                 rowCount={rowCount}
