@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import MainScreenUi from './main';
 
 const MainScreenModel = (props) => {
+  const firstUpdate = useRef(true);
   const cellCount = 9
   const [totalPresses, setTotalPresses] = useState(0)
   const [gameState, setGameState] = useState({})
@@ -89,8 +90,8 @@ const MainScreenModel = (props) => {
     setWinCoords(null)
     setCurrentType('close')
     stateGenerator(cellCount)
-    stateGenerator(cellCount)
     setTotalPresses(0)
+    firstUpdate.current = true
   }
 
   const progressWinShow = () => {
@@ -122,11 +123,19 @@ const MainScreenModel = (props) => {
 
   useEffect(() => {
     if (Object.keys(gameState).length > 0) {
-      progressPlayerShow()
       checkWin(gameState, cellCount)
     }
     else {
       stateGenerator(cellCount)
+    }
+  }, [gameState])
+
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+    }
+    else {
+      progressPlayerShow()
     }
   }, [currentType])
 

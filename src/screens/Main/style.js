@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   battleWrapper: {
+    padding: 30,
     zIndex: 2,
     marginTop: 40,
     flexDirection: 'column',
