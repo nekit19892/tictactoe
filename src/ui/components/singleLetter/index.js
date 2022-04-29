@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  Text
+  Text,
+  Animated
 } from 'react-native';
 import styles from './style';
 
@@ -8,7 +9,7 @@ const SingleLetter = (props) => {
   const { style, label } = props
 
   return (
-    <Text style={[styles.text, style]}>{label}</Text>
+    <Animated.Text style={[styles.text, style]}>{label}</Animated.Text>
   );
 };
 

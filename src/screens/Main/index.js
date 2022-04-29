@@ -3,11 +3,14 @@ import MainScreenUi from './main';
 
 const MainScreenModel = (props) => {
   const cellCount = 9
+  const [totalPresses, setTotalPresses] = useState(0)
   const [gameState, setGameState] = useState({})
   const [currentType, setCurrentType] = useState('close')
   const [isWinCoords, setWinCoords] = useState(null)
-  const label = 'try'
-  const degrees = [90, 180, 270]
+  const label = 'play'
+  const players = ['Player 1', 'Player 2']
+  const [progressToShow, setProgressToShow] = useState(players[0])
+  const degrees = [90, 180, 270, 360]
   const stateGenerator = (cellCount) => {
     let tempState = {};
     let rowCount = Math.sqrt(cellCount);
@@ -86,16 +89,51 @@ const MainScreenModel = (props) => {
     setWinCoords(null)
     setCurrentType('close')
     stateGenerator(cellCount)
+    stateGenerator(cellCount)
+    setTotalPresses(0)
+  }
+
+  const progressWinShow = () => {
+    let text = ''
+    if (isWinCoords) {
+      text = 'Win'
+    }
+    else {
+      text = 'Draft'
+    }
+    setProgressToShow(text)
+  }
+
+  const progressPlayerShow = () => {
+    let newCount = totalPresses + 1
+    if (newCount === cellCount) {
+      setProgressToShow('Draft')
+    }
+    else {
+      if (currentType === 'close') {
+        setProgressToShow(players[0])
+      }
+      else {
+        setProgressToShow(players[1])
+      }
+    }
+    setTotalPresses(newCount)
   }
 
   useEffect(() => {
     if (Object.keys(gameState).length > 0) {
+      progressPlayerShow()
       checkWin(gameState, cellCount)
     }
     else {
       stateGenerator(cellCount)
     }
   }, [currentType])
+
+
+  useEffect(() => {
+    if (totalPresses > 0) progressWinShow()
+  }, [isWinCoords])
 
   return (
     <MainScreenUi
@@ -108,6 +146,9 @@ const MainScreenModel = (props) => {
       setCurrentType={setCurrentType}
       isWinCoords={isWinCoords}
       resetFunc={reset}
+      players={players}
+      totalPresses={totalPresses}
+      progressText={progressToShow}
     />
   );
 };

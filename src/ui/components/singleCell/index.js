@@ -32,6 +32,7 @@ const SingleCell = (props) => {
 
   return (
     <TouchableOpacity
+      disabled={isTapped}
       onPress={() => checkPosition(position, figureType)}
       style={[
         styles.main,
